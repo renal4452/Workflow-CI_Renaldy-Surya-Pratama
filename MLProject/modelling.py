@@ -22,13 +22,16 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 import os
 import dagshub
 
+import os
+import dagshub
+
+assert "DAGSHUB_TOKEN" in os.environ, "DAGSHUB_TOKEN not set"
+
 dagshub.init(
     repo_owner="renal4452",
     repo_name="smsml-mlflow-bank",
-    mlflow=True,
-    token=os.environ["DAGSHUB_TOKEN"]  # ← WAJIB
+    mlflow=True
 )
-
 
 mlflow.set_experiment("bank-deposit-tuning")
 
