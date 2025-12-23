@@ -80,16 +80,16 @@ jobs:
             -d "$ARTEFAK_DIR/model"
 
       # Commit artefak ke repo
-        - name: Commit MLflow artifacts
-          run: |
-            git config --global user.name "github-actions"
-            git config --global user.email "github-actions@github.com"
-            git add artefak/
-            git commit -m "Add MLflow artifacts for run $RUN_ID" || echo "No changes to commit"
-            git push https://$MY_GITHUB_TOKEN@github.com/<username>/<repo>.git HEAD:main
-          env:
-            RUN_ID: ${{ env.RUN_ID }}
-            MY_GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+      - name: Commit MLflow artifacts to repo
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add artefak/
+          git commit -m "Add MLflow artifacts for run $RUN_ID" || echo "No changes to commit"
+          git push origin main
+        env:
+          RUN_ID: ${{ env.RUN_ID }}
+          MY_GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
 
       # Login ke Docker Hub
       - name: Log in to Docker Hub
