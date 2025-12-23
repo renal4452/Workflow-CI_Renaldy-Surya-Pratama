@@ -1,6 +1,4 @@
-name: bank-mlflow-project
-
-conda_env: conda.yaml
+name: smsml-mlflow-bank
 
 entry_points:
   main:
