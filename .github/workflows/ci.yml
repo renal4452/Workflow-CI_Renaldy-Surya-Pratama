@@ -8,8 +8,12 @@ on:
 jobs:
   train-and-dockerize:
     runs-on: ubuntu-latest
+
     env:
       DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
+      MLFLOW_TRACKING_URI: https://dagshub.com/renal4452/smsml-mlflow-bank.mlflow
+      MLFLOW_TRACKING_USERNAME: renal4452
+      MLFLOW_TRACKING_PASSWORD: ${{ secrets.DAGSHUB_TOKEN }}
 
     steps:
     # =========================
@@ -24,36 +28,37 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
-        python-version: '3.10'
+        python-version: "3.10"
 
     # =========================
     # INSTALL DEPENDENCIES
     # =========================
-    - name: Install dependencies
+    - name: Install Python dependencies
       run: |
-        pip install --upgrade pip
-        pip install mlflow dagshub pandas scikit-learn matplotlib seaborn
+        python -m pip install --upgrade pip
+        pip install \
+          mlflow==2.17.2 \
+          dagshub==0.3.15 \
+          pandas \
+          scikit-learn \
+          numpy \
+          matplotlib \
+          seaborn
 
     # =========================
-    # LOGIN DAGSHUB (MLFLOW)
+    # DISABLE DAGSHUB OAUTH (WAJIB)
     # =========================
-    - name: Set DagsHub environment
-      env:
-        MLFLOW_TRACKING_URI: https://dagshub.com/renal4452/Workflow-CI_Renaldy-Surya-Pratama.mlflow
-        MLFLOW_TRACKING_USERNAME: ${{ secrets.DAGSHUB_USER }}
-        MLFLOW_TRACKING_PASSWORD: ${{ secrets.DAGSHUB_TOKEN }}
-      run: echo "DagsHub environment set"
+    - name: Disable DagsHub OAuth
+      run: |
+        echo "DAGSHUB_DISABLE_RICH=1" >> $GITHUB_ENV
+        echo "DAGSHUB_USE_OAUTH=false" >> $GITHUB_ENV
 
     # =========================
     # RUN MLFLOW PROJECT
     # =========================
     - name: Run MLflow Project
-      env:
-        MLFLOW_TRACKING_URI: https://dagshub.com/renal4452/Workflow-CI_Renaldy-Surya-Pratama.mlflow
-        MLFLOW_TRACKING_USERNAME: ${{ secrets.DAGSHUB_USER }}
-        MLFLOW_TRACKING_PASSWORD: ${{ secrets.DAGSHUB_TOKEN }}
       run: |
-        mlflow run MLProject --env-manager=local
+        mlflow run . --env-manager=local
 
     # =========================
     # LOGIN DOCKER HUB
@@ -69,10 +74,11 @@ jobs:
     # =========================
     - name: Build Docker image with MLflow
       run: |
-        mlflow build-docker MLProject -n renal4452/bank-mlflow-ci:latest
+        mlflow build-docker . -n renal4452/bank-mlflow:latest
 
     # =========================
     # PUSH DOCKER IMAGE
     # =========================
     - name: Push Docker image
-      run: docker push renal4452/bank-mlflow-ci:latest
+      run: |
+        docker push renal4452/bank-mlflow:latest
