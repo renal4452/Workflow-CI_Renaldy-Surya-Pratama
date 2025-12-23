@@ -69,7 +69,7 @@ jobs:
     # =========================
     - name: Run MLflow Project
       run: |
-        mlflow run MLproject --env-manager=local 
+        mlflow run . --env-manager=local
 
     # =========================
     # LOGIN DOCKER HUB
