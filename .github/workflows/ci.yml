@@ -11,7 +11,7 @@ jobs:
 
     env:
       DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
-      MLFLOW_TRACKING_URI: https://dagshub.com/renal4452/smsml-mlflow-bank.mlflow
+      MLFLOW_TRACKING_URI: https://dagshub.com/renal4452/Workflow-CI_Renaldy-Surya-Pratama.mlflow
       MLFLOW_TRACKING_USERNAME: renal4452
       MLFLOW_TRACKING_PASSWORD: ${{ secrets.DAGSHUB_TOKEN }}
 
@@ -52,7 +52,7 @@ jobs:
       run: |
         echo "DAGSHUB_DISABLE_RICH=1" >> $GITHUB_ENV
         echo "DAGSHUB_USE_OAUTH=false" >> $GITHUB_ENV
-        
+
     - name: DEBUG MLPROJECT FILE
       run: |
         echo "===== CURRENT DIR ====="
@@ -69,7 +69,7 @@ jobs:
     # =========================
     - name: Run MLflow Project
       run: |
-        mlflow run . --env-manager=local
+        mlflow run MLproject --env-manager=local 
 
     # =========================
     # LOGIN DOCKER HUB
