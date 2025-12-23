@@ -2,4 +2,4 @@ name: bank-mlflow
 
 entry_points:
   main:
-    command: "python modelling.py"
+    command: "python MLProject_folder/modelling.py"
