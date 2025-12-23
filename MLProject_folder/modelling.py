@@ -1,26 +1,12 @@
-# ==============================
-# FIX WINDOWS UNICODE (WAJIB)
-# ==============================
 import os
-os.environ["DAGSHUB_DISABLE_RICH"] = "1"
 
-# ==============================
-# IMPORT
-# ==============================
 import pandas as pd
 import mlflow
 import mlflow.sklearn
-import dagshub
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import ParameterGrid
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
-
-# ==============================
-# INIT DAGSHUB + MLFLOW
-# ==============================
-import os
-import dagshub
 
 mlflow.set_experiment("bank-deposit-tuning")
 
