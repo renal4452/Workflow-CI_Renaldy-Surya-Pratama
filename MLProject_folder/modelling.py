@@ -22,15 +22,6 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 import os
 import dagshub
 
-import os
-import dagshub
-
-dagshub.init(
-    repo_owner="renal4452",
-    repo_name="Workflow-CI_Renaldy-Surya-Pratama",
-    mlflow=True
-)
-
 mlflow.set_experiment("bank-deposit-tuning")
 
 # ==============================

@@ -10,10 +10,9 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
       MLFLOW_TRACKING_URI: https://dagshub.com/renal4452/Workflow-CI_Renaldy-Surya-Pratama.mlflow
-      DAGSHUB_DISABLE_RICH: 1
-      DAGSHUB_USE_OAUTH: false
+      MLFLOW_TRACKING_USERNAME: renal4452
+      MLFLOW_TRACKING_PASSWORD: ${{ secrets.DAGSHUB_TOKEN }}
 
     steps:
     # =========================
