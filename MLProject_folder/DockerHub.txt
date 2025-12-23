@@ -1,1 +1,1 @@
-https://hub.docker.com/r/renal4452/mlflow-bank-ci
+https://hub.docker.com/r/renal4452/bank-mlflow
