@@ -25,8 +25,6 @@ import dagshub
 import os
 import dagshub
 
-assert "DAGSHUB_TOKEN" in os.environ, "DAGSHUB_TOKEN not set"
-
 dagshub.init(
     repo_owner="renal4452",
     repo_name="Workflow-CI_Renaldy-Surya-Pratama",
@@ -38,10 +36,10 @@ mlflow.set_experiment("bank-deposit-tuning")
 # ==============================
 # LOAD DATA (PREPROCESSED)
 # ==============================
-X_train = pd.read_csv("bank_preprocessing/X_train.csv")
-X_test  = pd.read_csv("bank_preprocessing/X_test.csv")
-y_train = pd.read_csv("bank_preprocessing/y_train.csv").values.ravel()
-y_test  = pd.read_csv("bank_preprocessing/y_test.csv").values.ravel()
+X_train = pd.read_csv("MLProject_folder/bank_preprocessing/X_train.csv")
+X_test  = pd.read_csv("MLProject_folder/bank_preprocessing/X_test.csv")
+y_train = pd.read_csv("MLProject_folder/bank_preprocessing/y_train.csv").values.ravel()
+y_test  = pd.read_csv("MLProject_folder/bank_preprocessing/y_test.csv").values.ravel()
 
 # ==============================
 # HYPERPARAMETER GRID
