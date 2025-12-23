@@ -86,7 +86,7 @@ jobs:
           git config --global user.email "github-actions@github.com"
           git add artefak/
           git commit -m "Add MLflow artifacts for run $RUN_ID" || echo "No changes to commit"
-          git push origin main
+          git push https://$MY_GITHUB_TOKEN@github.com/renal4452/Workflow-ci-msml.git HEAD:main
         env:
           RUN_ID: ${{ env.RUN_ID }}
           MY_GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
