@@ -65,7 +65,7 @@ jobs:
     - name: Build Docker image from MLflow model
       run: |
         mlflow models build-docker \
-          -m runs:/${RUN_ID}/model \
+          -m runs:/f5d32a3d3a704d178a36537f5a993f49/model \
           -n renal4452/bank-mlflow:latest
 
     # =========================
