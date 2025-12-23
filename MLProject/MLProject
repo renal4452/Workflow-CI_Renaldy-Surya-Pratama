@@ -5,3 +5,8 @@ conda_env: conda.yaml
 entry_points:
   main:
     command: "python modelling.py"
+    env:
+      - DAGSHUB_TOKEN
+      - MLFLOW_TRACKING_URI
+      - MLFLOW_TRACKING_USERNAME
+      - MLFLOW_TRACKING_PASSWORD
