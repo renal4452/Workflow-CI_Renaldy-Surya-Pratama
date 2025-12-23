@@ -1,4 +1,4 @@
-name: bank-ci-training
+name: bank-mlflow-project
 
 conda_env: conda.yaml
 
