@@ -12,8 +12,8 @@ jobs:
     env:
       DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
       MLFLOW_TRACKING_URI: https://dagshub.com/renal4452/Workflow-CI_Renaldy-Surya-Pratama.mlflow
-      MLFLOW_TRACKING_USERNAME: renal4452
-      MLFLOW_TRACKING_PASSWORD: ${{ secrets.DAGSHUB_TOKEN }}
+      DAGSHUB_DISABLE_RICH: 1
+      DAGSHUB_USE_OAUTH: false
 
     steps:
     # =========================
@@ -38,32 +38,12 @@ jobs:
         python -m pip install --upgrade pip
         pip install \
           mlflow==2.17.2 \
-          dagshub==0.3.15 \
           pandas \
           scikit-learn \
           numpy \
           matplotlib \
           seaborn
 
-    # =========================
-    # DISABLE DAGSHUB OAUTH (WAJIB)
-    # =========================
-    - name: Disable DagsHub OAuth
-      run: |
-        echo "DAGSHUB_DISABLE_RICH=1" >> $GITHUB_ENV
-        echo "DAGSHUB_USE_OAUTH=false" >> $GITHUB_ENV
-
-    - name: DEBUG MLPROJECT FILE
-      run: |
-        echo "===== CURRENT DIR ====="
-        pwd
-        echo "===== LIST ROOT ====="
-        ls -la
-        echo "===== MLProject FILE TYPE ====="
-        file MLProject || true
-        echo "===== MLProject CONTENT ====="
-        cat MLProject || true
-    
     # =========================
     # RUN MLFLOW PROJECT
     # =========================
@@ -88,8 +68,3 @@ jobs:
         mlflow build-docker . -n renal4452/bank-mlflow:latest
 
     # =========================
-    # PUSH DOCKER IMAGE
-    # =========================
-    - name: Push Docker image
-      run: |
-        docker push renal4452/bank-mlflow:latest
