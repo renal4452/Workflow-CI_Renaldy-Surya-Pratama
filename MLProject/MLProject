@@ -2,7 +2,7 @@ name: smsml-mlflow-bank
 
 entry_points:
   main:
-    command: "python modelling.py"
+    command: python modelling.py
     env:
       - DAGSHUB_TOKEN
       - MLFLOW_TRACKING_URI
