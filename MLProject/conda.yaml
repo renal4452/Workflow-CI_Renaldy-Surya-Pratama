@@ -1,0 +1,14 @@
+name: mlproject_env
+channels:
+  - defaults
+dependencies:
+  - python=3.8
+  - pip
+  - pip:
+      - pandas
+      - numpy
+      - scikit-learn
+      - mlflow
+      - joblib
+      - matplotlib
+      - seaborn
