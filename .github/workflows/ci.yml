@@ -53,29 +53,38 @@ jobs:
     # =========================
     # GET LATEST RUN_ID
     # =========================
-    - name: Get latest MLflow run_id from DAGsHub
+    - name: Get latest MLflow run_id from DAGsHub using Python
       run: |
-        # Install jq untuk parsing JSON
-        sudo apt-get update && sudo apt-get install -y jq
+        python - <<EOF
+        import mlflow
 
-        # Ambil run terbaru dari eksperimen bank-deposit-tuning
-        RUN_ID=$(mlflow search-runs \
-          --experiment-names "bank-deposit-tuning" \
-          --order-by "start_time desc" \
-          --max-results 1 \
-          --output-format json | jq -r '.[0].run_id')
+        mlflow.set_tracking_uri("${{ env.MLFLOW_TRACKING_URI }}")
+        client = mlflow.tracking.MlflowClient(
+            tracking_uri="${{ env.MLFLOW_TRACKING_URI }}"
+        )
 
-        if [ -z "$RUN_ID" ] || [ "$RUN_ID" = "null" ]; then
-          echo "No MLflow runs found on DAGsHub. Please check your experiment name or if a run exists."
-          exit 1
-        fi
+        # Ambil experiment
+        experiment = client.get_experiment_by_name("bank-deposit-tuning")
+        if experiment is None:
+            raise ValueError("Experiment 'bank-deposit-tuning' not found on DAGsHub.")
 
-        echo "RUN_ID=$RUN_ID" >> $GITHUB_ENV
-        echo "Latest MLflow run_id from DAGsHub: $RUN_ID"
+        # Ambil run terbaru
+        runs = client.list_run_infos(experiment.experiment_id, order_by=["start_time DESC"], max_results=1)
+        if not runs:
+            raise ValueError("No runs found in experiment.")
+
+        run_id = runs[0].run_id
+        print(f"RUN_ID={run_id}")
+
+        # Simpan ke environment
+        with open("${GITHUB_ENV}", "a") as f:
+            f.write(f"RUN_ID={run_id}\n")
+        EOF
       env:
         MLFLOW_TRACKING_URI: ${{ env.MLFLOW_TRACKING_URI }}
         MLFLOW_TRACKING_USERNAME: ${{ env.MLFLOW_TRACKING_USERNAME }}
         MLFLOW_TRACKING_PASSWORD: ${{ env.MLFLOW_TRACKING_PASSWORD }}
+
 
     # =========================
     # LOGIN DOCKER HUB
@@ -91,14 +100,7 @@ jobs:
     # =========================
     - name: Build Docker image from MLflow model
       run: |
-        if [ -z "$RUN_ID" ]; then
-          echo "RUN_ID not found. Make sure the MLflow project ran successfully."
-          exit 1
-        fi
-
-        mlflow models build-docker \
-          -m runs:/$RUN_ID/model \
-          -n renal4452/bank-mlflow:latest
+        mlflow models build-docker --model-uri "runs:/$RUN_ID/model" --name "renal4452/bank-mlflow:latest"
 
     # =========================
     # PUSH IMAGE
