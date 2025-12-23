@@ -52,7 +52,18 @@ jobs:
       run: |
         echo "DAGSHUB_DISABLE_RICH=1" >> $GITHUB_ENV
         echo "DAGSHUB_USE_OAUTH=false" >> $GITHUB_ENV
-
+        
+    - name: DEBUG MLPROJECT FILE
+      run: |
+        echo "===== CURRENT DIR ====="
+        pwd
+        echo "===== LIST ROOT ====="
+        ls -la
+        echo "===== MLProject FILE TYPE ====="
+        file MLProject || true
+        echo "===== MLProject CONTENT ====="
+        cat MLProject || true
+    
     # =========================
     # RUN MLFLOW PROJECT
     # =========================
