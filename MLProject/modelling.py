@@ -29,7 +29,7 @@ assert "DAGSHUB_TOKEN" in os.environ, "DAGSHUB_TOKEN not set"
 
 dagshub.init(
     repo_owner="renal4452",
-    repo_name="smsml-mlflow-bank",
+    repo_name="Workflow-CI_Renaldy-Surya-Pratama",
     mlflow=True
 )
 

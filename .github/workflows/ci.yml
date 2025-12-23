@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
-      
+
     steps:
     # =========================
     # CHECKOUT
@@ -39,7 +39,7 @@ jobs:
     # =========================
     - name: Set DagsHub environment
       env:
-        MLFLOW_TRACKING_URI: https://dagshub.com/renal4452/smsml-mlflow-bank.mlflow
+        MLFLOW_TRACKING_URI: https://dagshub.com/renal4452/Workflow-CI_Renaldy-Surya-Pratama.mlflow
         MLFLOW_TRACKING_USERNAME: ${{ secrets.DAGSHUB_USER }}
         MLFLOW_TRACKING_PASSWORD: ${{ secrets.DAGSHUB_TOKEN }}
       run: echo "DagsHub environment set"
@@ -49,7 +49,7 @@ jobs:
     # =========================
     - name: Run MLflow Project
       env:
-        MLFLOW_TRACKING_URI: https://dagshub.com/renal4452/smsml-mlflow-bank.mlflow
+        MLFLOW_TRACKING_URI: https://dagshub.com/renal4452/Workflow-CI_Renaldy-Surya-Pratama.mlflow
         MLFLOW_TRACKING_USERNAME: ${{ secrets.DAGSHUB_USER }}
         MLFLOW_TRACKING_PASSWORD: ${{ secrets.DAGSHUB_TOKEN }}
       run: |
@@ -69,10 +69,10 @@ jobs:
     # =========================
     - name: Build Docker image with MLflow
       run: |
-        mlflow build-docker MLProject -n renal4452/bank-mlflow:latest
+        mlflow build-docker MLProject -n renal4452/bank-mlflow-ci:latest
 
     # =========================
     # PUSH DOCKER IMAGE
     # =========================
     - name: Push Docker image
-      run: docker push renal4452/bank-mlflow:latest
+      run: docker push renal4452/bank-mlflow-ci:latest
