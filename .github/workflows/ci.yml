@@ -60,10 +60,17 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
     # =========================
-    # BUILD DOCKER IMAGE
+    # BUILD DOCKER FROM MODEL
     # =========================
-    - name: Build Docker image with MLflow
+    - name: Build Docker image from MLflow model
       run: |
-        mlflow build-docker . -n renal4452/bank-mlflow:latest
+        mlflow models build-docker \
+          -m runs:/${RUN_ID}/model \
+          -n renal4452/bank-mlflow:latest
 
     # =========================
+    # PUSH IMAGE
+    # =========================
+    - name: Push Docker image
+      run: |
+        docker push renal4452/bank-mlflow:latest
