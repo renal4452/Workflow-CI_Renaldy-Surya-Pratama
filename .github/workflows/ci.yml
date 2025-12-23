@@ -69,6 +69,15 @@ jobs:
               f.write(f"RUN_ID={run_id}\n")
           EOF
 
+      # Login ke Docker Hub    
+      - name: Download MLflow artifacts
+        run: |
+          mkdir -p $ARTEFAK_DIR
+          mlflow artifacts download \
+              -r ${{ env.MLFLOW_TRACKING_URI }} \
+              -u runs:/$RUN_ID/model \
+              -d $ARTEFAK_DIR/model
+
       # Login ke Docker Hub
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
