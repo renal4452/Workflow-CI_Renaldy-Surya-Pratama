@@ -16,15 +16,6 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import ParameterGrid
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
-# ==============================
-# INIT DAGSHUB + MLFLOW
-# ==============================
-dagshub.init(
-    repo_owner="renal4452",
-    repo_name="smsml-mlflow-bank",
-    mlflow=True
-)
-
 mlflow.set_experiment("bank-deposit-tuning")
 
 # ==============================
@@ -97,3 +88,4 @@ for params in ParameterGrid(param_grid):
         mlflow.log_artifact("prediction_sample.csv")
 
         print(f"RUN DONE | C={params['C']} | ACC={acc:.4f}")
+
