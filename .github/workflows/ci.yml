@@ -8,7 +8,9 @@ on:
 jobs:
   train-and-dockerize:
     runs-on: ubuntu-latest
-
+    env:
+      DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
+      
     steps:
     # =========================
     # CHECKOUT

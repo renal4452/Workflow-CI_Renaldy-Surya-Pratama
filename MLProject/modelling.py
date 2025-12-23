@@ -19,12 +19,16 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 # ==============================
 # INIT DAGSHUB + MLFLOW
 # ==============================
+import os
+import dagshub
+
 dagshub.init(
-    repo_owner="username",
-    repo_name="repo-name",
+    repo_owner="renal4452",
+    repo_name="smsml-mlflow-bank",
     mlflow=True,
-    token=os.getenv("DAGSHUB_TOKEN")
+    token=os.environ["DAGSHUB_TOKEN"]  # ← WAJIB
 )
+
 
 mlflow.set_experiment("bank-deposit-tuning")
 
