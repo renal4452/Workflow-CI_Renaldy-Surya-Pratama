@@ -1,5 +1,8 @@
 name: bank-mlflow
 
+python_env:
+  python: "3.10"
+
 entry_points:
   main:
     command: "python MLProject_folder/modelling.py"
