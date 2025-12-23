@@ -37,7 +37,7 @@ jobs:
       # Run MLflow project
       - name: Run MLflow project
         run: |
-          mlflow run MLproject --env-manager=local --experiment-name bank-deposit-tuning
+          mlflow run . --env-manager=local --experiment-name bank-deposit-tuning
 
       # Ambil latest run_id dari DAGsHub
       - name: Get latest MLflow run_id from DAGsHub
