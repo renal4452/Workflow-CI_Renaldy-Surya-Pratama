@@ -48,7 +48,7 @@ jobs:
     # =========================
     - name: Run MLflow Project
       run: |
-        mlflow run . --env-manager=local
+        mlflow run . --env-manager=local --experiment-name bank-deposit-tuning
 
     # =========================
     # LOGIN DOCKER HUB

@@ -8,8 +8,6 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import ParameterGrid
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
-mlflow.set_experiment("bank-deposit-tuning")
-
 # ==============================
 # LOAD DATA (PREPROCESSED)
 # ==============================
