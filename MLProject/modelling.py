@@ -30,10 +30,10 @@ mlflow.set_experiment("bank-deposit-tuning")
 # ==============================
 # LOAD DATA (PREPROCESSED)
 # ==============================
-X_train = pd.read_csv("bank_preprocessing/X_train.csv")
-X_test  = pd.read_csv("bank_preprocessing/X_test.csv")
-y_train = pd.read_csv("bank_preprocessing/y_train.csv").values.ravel()
-y_test  = pd.read_csv("bank_preprocessing/y_test.csv").values.ravel()
+X_train = pd.read_csv("MLProject/bank_preprocessing/X_train.csv")
+X_test  = pd.read_csv("MLProject/bank_preprocessing/X_test.csv")
+y_train = pd.read_csv("MLProject/bank_preprocessing/y_train.csv").values.ravel()
+y_test  = pd.read_csv("MLProject/bank_preprocessing/y_test.csv").values.ravel()
 
 # ==============================
 # HYPERPARAMETER GRID
